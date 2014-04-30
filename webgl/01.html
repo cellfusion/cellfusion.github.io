@@ -2,12 +2,23 @@
 <html>
 <head>
     <title>WebGL TEST</title>
+    <script src="js/stats.min.js"></script>
     <script src="js/three.min.js"></script>
     <link rel="stylesheet" href="css/master.css">
 </head>
 <body>
 
 <script>
+    var stats = new Stats();
+    stats.setMode(0);
+
+    // Align top-left
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.left = '0px';
+    stats.domElement.style.top = '0px';
+
+    document.body.appendChild( stats.domElement );
+
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 
@@ -25,10 +36,14 @@
     var render = function () {
         requestAnimationFrame(render);
 
+        stats.begin();
+
         cube.rotation.x += 0.1;
         cube.rotation.y += 0.1;
 
         renderer.render(scene, camera);
+
+        stats.end();
     };
 
     render();
